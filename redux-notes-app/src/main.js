@@ -1,5 +1,5 @@
 import store from './store/store';
-import { addNote } from './actions/actions';
+import { addNote, removeNote, showAll } from './actions/actions';
 
 // ------ HTML references ------
 let notesUList = document.getElementById('notes');
@@ -8,20 +8,40 @@ let addNoteTitle = addNoteForm['title'];
 let addNoteContent = addNoteForm['content'];
 
 // We use store.getState() to get our app state from the store
-console.log('Before:', store.getState());
-console.log(store.dispatch);
+
 store.dispatch(addNote('One', 'One content'));
 store.dispatch(addNote('Two', 'Two content'));
 store.dispatch(addNote('Three', 'Three content'));
-console.log('After:', store.getState());
+
+store.subscribe(() => {
+    renderNotes();
+  });
 
 // ------ Redux ------
 function deleteNote(index) {
     // console.log(index);
+    function deleteNote(index) {
+        store.dispatch(removeNote(index));
+      }
 }
 
 function renderNotes() {
+    let notes = store.getState().notes;
+    notesUList.innerHTML = '';
+    notes.map((note, index) => {
+        let noteItem = `
+        <li>
+            <b>${note.title}</b>
+            <button data-id="${index}">x</button>
+            <br />
+            <span>${note.content}</span>
+        </li>
+        `;
+        notesUList.innerHTML += noteItem;
+    });
+
     setDeleteNoteButtonsEventListeners();
+
 }
 
 // ------ Event Listeners ------
