@@ -1,5 +1,5 @@
 import { createStore } from 'redux';
-import reducers from '../reducers/reducers';
+import { mainReducer } from '../reducers/reducers';
 
 let initialState = {
     notes: [
@@ -10,7 +10,7 @@ let initialState = {
   };
   
 export default createStore(
-reducers,
+mainReducer,
 initialState,
 window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );

@@ -4,11 +4,12 @@ import notesReducer from './notesReducer';
 import visibilityFilter from './visibilityFilter';
 import { combineReducers } from 'redux';
 
-const reducers = combineReducers({
+ const mainReducer = combineReducers({
   notes: notesReducer,
-  visibility: visibilityFilter,
+  visibility: visibilityFilter
 });
 
+ 
 const initialState = {
     notes: [],
 };
@@ -34,4 +35,5 @@ function rootReducer(state = initialState, action) {
     }
 }
 
-export default reducers, rootReducer;
+
+export {mainReducer,rootReducer};
